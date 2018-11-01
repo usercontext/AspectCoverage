@@ -1,38 +1,32 @@
 from selenium import webdriver
-from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import Select
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.common.exceptions import TimeoutException
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import NoSuchElementException
-from selenium.common.exceptions import NoAlertPresentException
-import sys
+from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
+from time import sleep
+import json
+import datetime
 
-import unittest
-import time
-import re
-from bs4 import BeautifulSoup as bs
-from dateutil import parser
-import pandas as pd
-import itertools
-import matplotlib.pyplot as plt
-
-driver = webdriver.Firefox()
-driver.base_url = "https://twitter.com/swyx/following"
+driver = webdriver.Safari()
+driver.base_url = "https://www.reddit.com/r/travel"
 driver.get(driver.base_url)
 
-for i in range(1, 230):
-    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-    time.sleep(2)
-    print(i)
+found_questions = driver.find_elements_by_xpath("//span/a/h2/text()")
+print(len(found_questions))
+increment = 10
+# redlen = len(found_questions)
+# prev_ques = []
 
-html_source = driver.page_source
-sourcedata= html_source.encode('utf-8')
-soup=bs(sourcedata)
-arr = [x.div['data-screen-name'] for x in soup.body.findAll('div', attrs={'data-item-type':'user'})]
-bios = [x.p.text for x in soup.body.findAll('div', attrs={'data-item-type':'user'})]
-fullnames = [x.text.strip() for x in soup.body.findAll('a', 'fullname')][1:] # avoid your own name
-d = {'usernames': arr, 'bios': bios, 'fullnames': fullnames}
-df = pd.DataFrame(data=d)
-df.to_csv('data/BASICDATA.csv')
+for i in range(500):
+    print(i)
+    driver.execute_script('window.scrollTo(0, document.body.scrollHeight);')
+    # found_questions = driver.find_elements_by_xpath("//span/a/h2/text()")
+    # print(i, len(found_questions))
+    sleep(0.3)
+
+sleep(10)
+found_questions = driver.find_elements_by_xpath("//span/a/h2/text()")
+print(len(found_questions))
+
+with open('data/travel/reddit.txt', 'w') as f:
+    for item in found_questions:
+        f.write("%s\n" % item.text)
+driver.close()
