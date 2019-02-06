@@ -53,8 +53,21 @@ TREC Tasks are well curated set of subtasks being done to cover a particular tas
 
 #### Technique
 
+We use TREC Tasks dataset from last 3 years for this purpose. Each dataset contains 150 tasks and their suggestive subtasks. These list of subtasks ideally represent the entirety of solving that particular task. We compare the formed aspects and their subtasks with these standard task-subtask relationship. In our case, we limit our analysis to a specific domain - Travel and hence, gather tasks which represent travel.
+
+We perform 3 separate analysis to gather insights on which platform can help in solving our needs:
+* Likelihood of a subtask being covered by a specific platform (The no. of questions which lie above a certain semantic similarity threshold) {This needs to be more precise, also has the classifier been validated? How much is the error?}
+* Most accurate subtask being covered by a specific platform (The highest semantic similarity obtained for a subtask)
+* Quality of a subtask being solved by a platform (The average semantic similarity of the top-10 questions)  {I am not sure this can be called quality, it sounds more like quantity}
+
+{These measurements may not be measuring what you claim to measure. These need to be or 1) validated by doing a manual assessment of a sample, or if possible 2) completely avoided by doing manual assessment of everything. I believe the first may be sufficient.}
+
 
 #### Results
+
+
+
+From the evaluation of the aspects against tasks from the TREC Task dataset, it can be observed that StackExchange tends to solve technical aspects of solving a task and have only one right answer for eg. getting a visa, checking for weather. Quora and Reddit help extensively with recommendations which are effectively opinions from general public - Its intention can be seen from there being answers which are upvoted/downvoted based on their popularity and there is no one right answer as compared to StackExchange. Wikihow fares low on all the scores because.
 
 ### Unanswered Questions
 
