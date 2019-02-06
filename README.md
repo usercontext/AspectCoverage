@@ -30,24 +30,36 @@ Tasks:
 ### Aspect Coverage
 
 #### Why?
+Different aspects have different levels of specificity required to answer them. Some aspects like "Visa" have very technical questions, whereas other aspects like "Destinations" would have recommendations and opinions. Doing an aspect coverage check would help us gather thoughts and make observations on which aspects are covered the most by these platforms. 
 
 #### Technique
-We take collection of queries from all the aforementioned platforms and generate a set of uni,bi,tri-grams from them. We pool in all these n-grams into a universal pool. We perform a bayesian non-parametric clustring called distance dependent chinese restaurant process (DDCRP) over this universal pool of ngrams. This clustering method is specifically chosen as there is no need to specify the number of clusters desired - it is automatically inferred from the collection of ngranms. The distance required by the algorithm is modelled over the cosine similarity between the average word2vec embeddings formed by the individual words in an ngram. It should be noted that this algoithm being a derivative of the Dirichlet Process, is non-deterministic in nature. The algorithm returns a set of clusters containing ngrams. These clusters are mapped back to the original ngram collection to check the purity. The amount of purity in these clusters determine the different aspects of tasks which these platforms aid in solving.
+We take collection of queries from all the aforementioned platforms and generate a set of uni,bi,tri-grams from them. We pool in all these n-grams into a universal pool. We perform a bayesian non-parametric clustering called distance dependent chinese restaurant process (DDCRP) over this universal pool of ngrams. This clustering method is specifically chosen as there is no need to specify the number of clusters desired - it is automatically inferred from the collection of ngranms. The distance required by the algorithm is modelled over the cosine similarity between the average word2vec embeddings formed by the individual words in an ngram. It should be noted that this algoithm being a derivative of the Dirichlet Process, is non-deterministic in nature. The algorithm returns a set of clusters containing ngrams. These clusters are mapped back to the original ngram collection to check the purity. The amount of purity in these clusters determine the different aspects of tasks which these platforms aid in solving.
 
 #### Results
-The results we obtain from these platforms shows the division of platforms among several different aspects.
+The results we obtain from these platforms shows the division of platforms among several different aspects of travel. We also use the TaskHierarchy138K to label the clusters which were formed to make a sense of the observations.
+
+| Aspect Clusters | Wikihow | Reddit | Quora | StackExchange | Aspect Labels |
+|---|---|---|---|---|---|
+| [('wander', 'new', 'york'), ('las', 'vegas'), ('miami', 'new', 'york'), ('new', 'york', 'city'), ('washington', 'dc'), ('san', 'francisco'), ('la', 'new', 'york'), ('bus', 'new', 'york')]| [x] | [] | [] | [] | United States Travel |
+| [('schengen', 'visa'), ('tourist', 'visa'), ('multipleentry', 'schengen', 'visa'), ('visitor', 'visa'), ('apply', 'schengen', 'visa'), ('visa', 'application'), ('schengen', 'visa', 'waiver')]| [] | [x] | [] | [] | Official Travel Documentation |
+|[('unmarried', 'couples')]| [] | [] | [x] | [] | Traveling with Companions |
+| [('sri', 'lanka'),('grand', 'canyon')]| [] | [] | [] | [x] | Around the World Travel |
+
 
 ### Quantitative Analysis with TREC Tasks
 
 #### Why?
+TREC Tasks are well curated set of subtasks being done to cover a particular task. Different subtasks have different levels of technicality associated with it. For example, a task like "Planning a Wedding" will have subtasks like "Buying a wedding cake" which is an opinion task based on the cost, shape, size, design etc. and other subtasks like "Wedding Registration with the government" which would be highly technical having very specific steps of fulfilling it. Hence, there exists a need to compare these subtasks with the questions being asked on the mentioned platforms.
 
 #### Technique
+
 
 #### Results
 
 ### Unanswered Questions
 
 #### Why?
+We make a hypothesis that different platforms have induced a bias in the way people ask questions on each of them. However, rather than it being a natural bias, there might be moderation on each platform which remove/close questions which are not relevant to the platform. We need to check the unanswered questions to make sense of such data and this will help in supporting the argument for "natural" bias rather than a "moderated" bias.
 
 #### Technique
 
